@@ -43,4 +43,31 @@ cv2.waitKey(0)
 m_blurred_image = cv2.medianBlur(flower, (5))
 cv2.imshow("median blurred image", m_blurred_image)
 cv2.waitKey(0)
+b_blurred_image = cv2.bilateralFilter(flower, 9, sigmaColor=50, sigmaSpace=50)
+cv2.imshow("bilateral blur", b_blurred_image)
+cv2.waitKey(0)
+border = cv2.copyMakeBorder(flower, 15, 15, 15, 15, cv2.BORDER_CONSTANT, value=168)
+cv2.imshow("bordered image", border)
+cv2.waitKey(0)
+reflection_border = cv2.copyMakeBorder(flower, 150, 150,150, 150, cv2.BORDER_REFLECT)
+cv2.imshow("reflection border", reflection_border)
+cv2.waitKey(0)
+colour_to_greyscale = cv2.cvtColor(flower, cv2.COLOR_BGR2GRAY)
+cv2.imshow("colour to greyscale", colour_to_greyscale)
+cv2.waitKey(0)
+inverted_image = 255-flower
+cv2.imshow("inverted", inverted_image)
+cv2.waitKey(0)
+print(image.shape)
+rows = image.shape[0]
+columns = image.shape[1]
+print(rows)
+print(columns)
+flower2 = image
+for i in range(rows):
+    for r in range(columns):
+        flower2[i,r]=sum(flower2[i, r]) * 0.01
+cv2.imshow("greyscale averaging", flower2)
+cv2.waitKey(0)
+
 cv2.destroyAllWindows()
