@@ -1,0 +1,15 @@
+import cv2
+import os
+image = cv2.imread("C:/Users/pooja/Desktop/OpenCV/images/field.png", cv2.IMREAD_COLOR)
+cv2.imshow("window", image)
+cv2.waitKey(0)
+g_blur = cv2.GaussianBlur(image, (5,5), 0)
+cv2.imshow("gausian blur", g_blur)
+cv2.waitKey(0)
+m_blur = cv2.medianBlur(image, (5))
+cv2.imshow("median blur", m_blur)
+cv2.waitKey(0)
+reflected_border_image = cv2.copyMakeBorder(g_blur, 20, 20, 20, 20, cv2.BORDER_REFLECT)
+cv2.imshow("reflected image", reflected_border_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
