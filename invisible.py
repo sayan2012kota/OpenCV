@@ -7,9 +7,9 @@ for i in range(10):
     boolean, frame = video.read()
     if boolean == True:
         background = frame
-video.release()
+#video.release()
 flipped_background = np.flip(background, axis = 1)
-print("hi")
+print(flipped_background)
 while video.isOpened():
     boolean2, frames = video.read()
     print(boolean2)
@@ -25,8 +25,8 @@ while video.isOpened():
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, np.ones((3,3), np.uint8), iterations=1)
     mask2 = cv2.bitwise_not(mask)
     result1 = cv2.bitwise_and(background, background, mask=mask)
-    result2 = cv2.bitwise_and(image, image,  mask=mask2)
-    final_image = cv2.addWeighted(result1, 1, result2, 1)
+    result2 = cv2.bitwise_and(flipped_frame, flipped_frame,  mask=mask2)
+    final_image = cv2.addWeighted(result1, 1, result2, 1, 0)
     cv2.imshow("window", final_image)
-    cv2.waitKey(0)
+    cv2.waitKey(10)
     print("o")
