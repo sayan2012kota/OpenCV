@@ -9,9 +9,10 @@ for i in range(10):
         background = frame
 video.release()
 flipped_background = np.flip(background, axis = 1)
-
+print("hi")
 while video.isOpened():
     boolean2, frames = video.read()
+    print(boolean2)
     flipped_frame = np.flip(frames, axis = 1)
     image =  cv2.cvtColor(flipped_frame, cv2.COLOR_BGR2HSV)
     red_values = np.array([0, 120, 40])
@@ -23,4 +24,9 @@ while video.isOpened():
     mask = mask + mask2
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, np.ones((3,3), np.uint8), iterations=1)
     mask2 = cv2.bitwise_not(mask)
-
+    result1 = cv2.bitwise_and(background, background, mask=mask)
+    result2 = cv2.bitwise_and(image, image,  mask=mask2)
+    final_image = cv2.addWeighted(result1, 1, result2, 1)
+    cv2.imshow("window", final_image)
+    cv2.waitKey(0)
+    print("o")
