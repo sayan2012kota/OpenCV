@@ -14,5 +14,9 @@ webcam = cv2.VideoCapture(0)
 for i in range(30):
     boolean, images = webcam.read()
     images = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
-    face_coordinates = cascade_classifier.detectMultiScale(images, 1.5, 4)
+    face_coordinates = cascade_classifier.detectMultiScale(images, 1.05, 2)
     print(face_coordinates)
+    for x, y, w, l in face_coordinates:
+        cropped_face = images[y:y+l, x:x+w]
+        cv2.imwrite("%s/%s.png"%(sayan, i), cropped_face)
+        
