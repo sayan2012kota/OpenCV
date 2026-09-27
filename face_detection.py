@@ -27,9 +27,20 @@ cascade_classifier = cv2.CascadeClassifier(haarfile)
 webcam = cv2.VideoCapture(0)
 while True:
     boolean, images = webcam.read()
+    images = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
     face_coordinates = cascade_classifier.detectMultiScale(images, 1.05, 2)
     #print(face_coordinates)
     for x, y, w, l in face_coordinates:
         cropped_face = images[y:y+l, x:x+w]
         prediction = model.predict(cropped_face)
-        #print(prediction)
+        print(prediction)
+        prediction_value = prediction[0]
+        storing_folder = dictionary[prediction_value]
+        prediction_accuracy = prediction[1]
+        if prediction_accuracy < 70:
+            print(storing_folder)
+            cv2.putText(images, storing_folder, (x, y), cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 2, (0,0,0))
+    cv2.imshow("window", images)
+    s = cv2.waitKey(10)
+    if s == 115:
+        break
